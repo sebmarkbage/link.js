@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link.js Spec Runner</title>
+
+  <link rel="shortcut icon" type="image/png" href="jasmine/jasmine_favicon.png">
+
+  <link rel="stylesheet" type="text/css" href="jasmine/jasmine.css">
+  <script type="text/javascript" src="jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+
+  <script type="text/javascript" src="jasmine/async-callback.js"></script>
+</head>
+
+<body>
+
+  <script>
+    var log = function(){
+      //document.body.appendChild(document.createElement('br'));
+      //document.body.appendChild(document.createTextNode(Array.prototype.join.call(arguments, ' ')));
+    };
+    if (!this.console) this.console = { log: log, warn: log };
+    this.exports = {}; // Ensure Link.js exports itself
+  </script>
+  <script type="text/javascript" src="../Source/Library/link.js"></script>
+  <script type="text/javascript" src="../Source/Browser/link.js"></script>
+  <script>
+    exports.alias("../Source/Node/link.js", "../Source/Browser/link.js");
+    exports.load("Parser.spec");
+    exports.load("Loader.spec", function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var trivialReporter = new jasmine.TrivialReporter();
+
+      jasmineEnv.addReporter(trivialReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return trivialReporter.specFilter(spec);
+      };
+
+      jasmineEnv.execute();
+    });
+  </script>
+
+</body>
+</html>

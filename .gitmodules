@@ -1,0 +1,12 @@
+[submodule "Tests/inject"]
+	path = Tests/inject
+	url = http://github.com/linkedin/inject.git
+[submodule "Tests/commonjs"]
+	path = Tests/commonjs
+	url = http://github.com/commonjs/commonjs.git
+[submodule "Tests/amdjs"]
+	path = Tests/amdjs
+	url = http://github.com/amdjs/amdjs-tests.git
+[submodule "Tests/labeled-modules"]
+	path = Tests/labeled-modules
+	url = http://github.com/labeledmodules/labeled-modules-spec.git
