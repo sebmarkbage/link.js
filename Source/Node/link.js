@@ -262,8 +262,8 @@ function main(){
 
 	} else {
 
-		// TODO: Set environment variables, argv and main module
-		require(Path.resolve(options.input));
+		process.argv.splice(1, 2, require.resolve(Path.resolve(options.input)));
+		Module.runMain();
 
 	}
 }
