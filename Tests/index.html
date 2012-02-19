@@ -23,9 +23,9 @@
     this.exports = {}; // Ensure Link.js exports itself
   </script>
   <script type="text/javascript" src="../Source/Library/link.js"></script>
-  <script type="text/javascript" src="../Source/Browser/link.js"></script>
+  <script type="text/javascript" src="../Source/Web/link.js"></script>
   <script>
-    exports.alias("../Source/Node/link.js", "../Source/Browser/link.js");
+    exports.alias("../Source/Node/link.js", "../Source/Web/link.js");
     exports.load("Parser.spec");
     exports.load("Loader.spec", function() {
       var jasmineEnv = jasmine.getEnv();

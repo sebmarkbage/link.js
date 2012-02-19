@@ -26,7 +26,7 @@ How Do I Run This in the Browser?
 ---------------------------------
 
 ```html
-<script src="Source/Browser/link.js" data-main="YourMainModule"></script>
+<script src="Source/Web/link.js" data-main="YourMainModule"></script>
 ```
 
 The first attribute is the path to link.js and the second is the path to your main module.
@@ -154,8 +154,8 @@ require('linkjs');
 Any subsequent calls to require can now use Labeled Modules or AMD syntax. However, the first loaded module can't because the plugin has not been loaded yet. Your entry module should use CommonJS while sub-modules can use Labeled Modules or AMD.
 
 
-Browser/Link.js
----------------
+Web/Link.js
+-----------
 
 This is a script loader for use in the browser environment. It uses Link.js to load, parse and execute scripts in isolated scopes so that there are no conflicts between the files. It supports at least Chrome, Safari, Firefox, Opera and IE6+.
 
@@ -171,7 +171,7 @@ Link.js doesn't normally expose an API to the global object. It can be **require
 Debugging
 ---------
 
-Browser/Link.js uses XHR to load and parse your code, then it executes it using **eval**.
+Web/Link.js uses XHR to load and parse your code, then it executes it using **eval**.
 
 Some browser tools won't allow debugging of eval:ed code by default. However, Link.js
 uses the `//@ sourceURL=...` convention to enable proper debugging in compatible browsers.
@@ -182,7 +182,7 @@ IE and Opera does support debugging of eval:ed code but doesn't give them a prop
 UI. This means breakpoints are not persistent between page reloads. Please bug them until they
 fix this.
 
-A future enhancement of Browser/Link.js could load some files that do not conflict in plain
+A future enhancement of Web/Link.js could load some files that do not conflict in plain
 script tags.
 
 

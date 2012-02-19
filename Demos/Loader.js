@@ -1,4 +1,4 @@
-require: "../Source/Browser/link", "./Log";
+require: "../Source/Web/link", "./Log";
 
 var dynamicURL = 'Ev' + 'en';
 
