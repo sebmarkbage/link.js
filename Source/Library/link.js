@@ -47,7 +47,7 @@ var umd = {
 		'.call(this, typeof require === "undefined" ? function(){return this} : require, this));',
 
 	'amd':
-		'define(function(require, exports, module){\n$\n};',
+		'define(function(require, exports, module){\n$\n});',
 
 	'cjs,amd':
 		'(typeof define === "function" && define.amd ? define : ' +
