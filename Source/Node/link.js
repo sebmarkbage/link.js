@@ -164,15 +164,9 @@ exports.evalAsync = function(source, callback, failure){
 	if (success) success(result);
 };
 
-exports.loaded = require.cache;
+exports.loaded = require.cache; // Currently contains module objects, but should be exports
 
 // Path mapping
-
-var aliases = Object.create(null), basePath;
-exports.alias = function(name, url){
-	if (loadedModules) delete loadedModules[name];
-	aliases[name] = require.resolve(url);
-};
 
 var originalFindPath = Module._findPath;
 Module._findPath = function(request, paths){
@@ -181,22 +175,29 @@ Module._findPath = function(request, paths){
 	return (request in aliases) ? request : originalFindPath(request, paths);
 };
 
+var aliases = Object.create(null), basePath;
+exports.alias = function(name, url){
+	if (loadedModules) delete loadedModules[name];
+	aliases[name] = require.resolve(url);
+};
+
 exports.base = function(path){
 	basePath = Path.dirname(path + 'x'); // Because trailing slash in urls refer to a directory
 };
 
+// Error reporting
 
-var error = function(code){
+function error(code){
 	console.error(code);
 	process.exit(1);
 };
 
 // Options
 
-var singleCharacterOptions = {};
-for (var key in defaultOptions) singleCharacterOptions[key[0]] = key;
-
 function optionsFromArgs(args){
+	var singleCharacterOptions = {};
+	for (var key in defaultOptions) singleCharacterOptions[key[0]] = key;
+
 	var options = {};
 	for (var i = 2, l = args.length; i < l; i++){
 		var v = args[i];
