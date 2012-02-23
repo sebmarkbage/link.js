@@ -1,5 +1,5 @@
 {
-	"name" : "linkjs",
+	"name" : "link",
 	"version" : "0.1.1",
 	"description" : "Module runtime and converter for Labeled Modules, CommonJS and AMD.",
 	"homepage" : "http://github.com/calyptus/link.js",

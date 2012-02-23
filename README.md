@@ -38,7 +38,7 @@ How Do I Run This in Node.js?
 As a global runtime:
 
 ```
-npm install -g linkjs
+npm install -g link
 ```
 
 ```
@@ -50,11 +50,11 @@ OR
 As a local dependency:
 
 ```
-npm install linkjs
+npm install link
 ```
 
 ```javascript
-require('linkjs'); // This will allow future modules to use Link.js
+require('link'); // This will allow future modules to use Link.js
 require('YourMainModule');
 ```
 
@@ -65,7 +65,7 @@ How Do I Convert My Source Files to CommonJS or AMD?
 ----------------------------------------------------
 
 ```
-npm install -g linkjs
+npm install -g link
 ```
 
 ```
@@ -118,7 +118,7 @@ Node/Link.js
 This is a runtime loader and script conversion tool for Node.js. It can be ran stand-alone but it's recommended that you install it using NPM.
 
 ```
-npm install -g linkjs
+npm install -g link
 ```
 
 You can use this tool to convert your modules into other module formats or universal module formats. You can target multiple formats in a single file.
@@ -142,13 +142,13 @@ modulename [argv...]       Run a module in Node.js, with optional arguments.
 You can alternatively use Link.js as a plugin to Node's existing module loader. First, install it as a local dependency.
 
 ```
-npm install linkjs
+npm install link
 ```
 
 Then require it at the first line of your application or module.
 
 ```javascript
-require('linkjs');
+require('link');
 ```
 
 Any subsequent calls to require can now use Labeled Modules or AMD syntax. However, the first loaded module can't because the plugin has not been loaded yet. Your entry module should use CommonJS while sub-modules can use Labeled Modules or AMD.
