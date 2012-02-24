@@ -1,4 +1,4 @@
-version: 0.11;
+version: 0.12;
 
 (function(){
 "use strict";
@@ -1091,6 +1091,8 @@ function scanStatement(){
 				scanExportsStatement();
 			}
 			declarationToken.end = lookahead().start;
+			if (match('{'))
+				scanBlock();
 		} else {
 			scanIdentifierExpression(token);
 		}

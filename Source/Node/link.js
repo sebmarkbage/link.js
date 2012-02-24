@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-version: 0.11;
+version: 0.12;
 
 // TODO: Enable clean debugging by keeping runtime boilerplate within the 62 characters Node does.
 // TODO: Drop CommonJS Async compliance and the more esoteric parts of AMD compliance
