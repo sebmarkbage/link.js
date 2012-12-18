@@ -381,7 +381,7 @@ function couldBeRegExp(){
 	// TODO: Proper regexp handling, when I find a case for it
 	var token = previousToken;
 	return typeof token === 'undefined' ||
-		(token.type === Punctuator && '!(=:,[{++--;'.indexOf(token.value) >= 0) ||
+		(token.type === Punctuator && '!(=:,[{++--;&&||^'.indexOf(token.value) >= 0) ||
 		(token.type === Keyword && isKeyword(token.value));
 }
 
@@ -678,7 +678,7 @@ function lookahead(){
 function expect(value){
 	var token = lex();
 	if (token.type !== Punctuator || token.value !== value) {
-		throw new Error('Unexpected token: ' + token.value);
+		throw new Error('Unexpected token: ' + token.value + ' at line ' + lineNumber);
 	}
 }
 
@@ -701,9 +701,19 @@ function matchKeyword(keyword){
 
 function matchBlockStart(){
 	var token = lookahead();
-	if (token.type == Keyword)
+	if (token.type == Keyword){
+		if (token.value == 'case'){
+			lex();
+			lex();
+			return true;
+		}
+		if (token.value == 'default'){
+			lex();
+			return true;
+		}
 		return token.value == 'do' || token.value == 'else' ||
 			   token.value == 'finally' || token.value == 'try';
+	}
 	return false;
 }
 

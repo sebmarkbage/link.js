@@ -33,7 +33,14 @@ describe('globals', function(){
 			}
 		}, someOtherVariable
 
-		exports.nooz = 'zoon';
+		switch ("x"){
+			case "x": {
+				exports.nooz = 'zoon';
+			}
+			default: {
+				ebar = bah && /regexp/.test("string");
+			}
+		}
 
 		exports: bar;
 

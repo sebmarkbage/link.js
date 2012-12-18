@@ -1,6 +1,6 @@
 version: 0.12;
 
-(function(debuggableRun, simpleRun){
+(function(debuggableRun, simpleRun, getGlobal){
 'use strict';
 
 // Link.js parser stub
@@ -25,7 +25,7 @@ var sourceCodeBranding = '\n\n// Loaded by Link.js //@ sourceURL=',
 
 // Execution
 
-var global = this || {}, testObject = {}, hop = testObject.hasOwnProperty, undefined = testObject.undefined;
+var global = getGlobal() || {}, testObject = {}, hop = testObject.hasOwnProperty, undefined = testObject.undefined;
 
 function execute(module){
 	if (!module) error('preloadFailed');
@@ -33,7 +33,7 @@ function execute(module){
 	var exports = module.exports, url = module.uri, sourceCodeSuffix = '';
 
 	if (url){
-		executedModules[url] = exports;
+		executedModules[url] = module;
 		sourceCodeSuffix = sourceCodeBranding + url;
 	}
 
@@ -60,7 +60,7 @@ function execute(module){
 		var m = loadedModules[id];
 		var exports = m ? m.exportedVariables.concat(m.exportedFunctions, m.exportedProperties) : [];
 		m = executedModules[id];
-		if (m)
+		if (m && (m = m.exports))
 			for (var key in m)
 				if (hop.call(m, key))
 					exports.push(key);
@@ -226,7 +226,7 @@ function prepareEnvironment(module){
 				execute(loadedModules[id]);
 			else
 				error('moduleNotLoaded', id);
-		return executedModules[id];
+		return executedModules[id].exports;
 	}
 	require.main = mainModule;
 	require.toUrl = function(id){
@@ -284,14 +284,14 @@ function prepareEnvironment(module){
 			factory = factory.apply(exports, required);
 		}
 		if (factory && id){
-			executedModules[canonicalize(id, module.uri)] = factory;
+			executedModules[canonicalize(id, module.uri)].exports = factory;
 		}
 	}
 	define.amd = {};
 
 	module.setExports = function(exports){
 		module.exports = exports;
-		if (module.uri) executedModules[module.uri] = exports;
+		//if (module.uri) executedModules[module.uri] = exports;
 	};
 
 	return {
@@ -521,7 +521,7 @@ function load(url, success, failure){
 		loadSource(url);
 	scheduleCallback(
 		function(){
-			if (url in executedModules) return executedModules[url];
+			if (url in executedModules) return executedModules[url].exports;
 			var module = loadedModules[url];
 			if (!module) error('moduleNotLoaded', url);
 			ensureImportsAreLoaded(module);
@@ -581,7 +581,7 @@ for (var i = scripts.length - 1; i >= 0; i--){
 		if (script.getAttribute('data-resolve') != null)
 			staticMode = true;
 
-		executedModules[canonicalize(script.src)] = loader;
+		executedModules[canonicalize(script.src)] = { exports: loader };
 		main = canonicalize(main);
 		baseUrl = canonicalize('./', main);
 
@@ -630,6 +630,10 @@ return (function(){
 function(__MODULE_SOURCE__, __MODULE_ENVIRONMENT__){
 	with (__MODULE_ENVIRONMENT__)
 		return eval(__MODULE_SOURCE__);
+},
+
+function(){
+	return this;
 }
 
 ));

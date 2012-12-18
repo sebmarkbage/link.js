@@ -315,5 +315,13 @@ describe('Loader', function(){
 		});
 	});
 
+	describe("Link.js Test Suite", function(){
+
+		it("should allow dynamic exports by overriding module.exports", function(){
+			expect(require('./nodejs/override-exports').foo).toEqual('bar');
+		});
+
+	});
+
 });
 
