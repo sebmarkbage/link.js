@@ -321,6 +321,14 @@ describe('Loader', function(){
 			expect(require('./nodejs/override-exports').foo).toEqual('bar');
 		});
 
+		it("should allow a define factory without dependencies", function(){
+			expect(require('./nodejs/simple-define').exported).toEqual('object');
+		});
+
+		it("should allow a factory without dependencies to assign to this", function(){
+			expect(require('./nodejs/define-this').exported).toEqual('object');
+		});
+
 	});
 
 });

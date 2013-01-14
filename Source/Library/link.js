@@ -1,4 +1,4 @@
-version: 0.12;
+version: 0.14;
 
 (function(){
 "use strict";
@@ -381,7 +381,7 @@ function couldBeRegExp(){
 	// TODO: Proper regexp handling, when I find a case for it
 	var token = previousToken;
 	return typeof token === 'undefined' ||
-		(token.type === Punctuator && '!(=:,[{++--;&&||^'.indexOf(token.value) >= 0) ||
+		(token.type === Punctuator && '})]'.indexOf(token.value) == -1) ||
 		(token.type === Keyword && isKeyword(token.value));
 }
 
@@ -528,7 +528,8 @@ function scanIdentifier() {
 	id = nextChar();
 	while (index < length) {
 		ch = source[index];
-		if (isWhiteSpace(ch) || isLineTerminator(ch) || isPunctuator(ch)) // "'?
+		if (isWhiteSpace(ch) || isLineTerminator(ch) || isPunctuator(ch) ||
+			ch == '\'' || ch == '"')
 			break;
 		id += nextChar();
 	}

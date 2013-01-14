@@ -1,4 +1,4 @@
-version: 0.12;
+version: 0.14;
 
 (function(debuggableRun, simpleRun, getGlobal){
 'use strict';
@@ -281,7 +281,7 @@ function prepareEnvironment(module){
 		if (typeof factory === 'function'){
 			for (var i = 0, l = deps.length; i < l; i++)
 				required.push(require(deps[i]));
-			factory = factory.apply(exports, required);
+			factory = factory.apply(module.exports, required);
 		}
 		if (factory && id){
 			executedModules[canonicalize(id, module.uri)].exports = factory;

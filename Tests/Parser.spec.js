@@ -38,7 +38,9 @@ describe('globals', function(){
 				exports.nooz = 'zoon';
 			}
 			default: {
-				ebar = bah && /regexp/.test("string");
+				ebar = bah && /regexp/.test("string")
+					? /regexp/ : !/regexp/;
+				return"string"
 			}
 		}
 
@@ -52,7 +54,7 @@ describe('globals', function(){
 	});
 
 	// Avoid browser dead code elimination
-	sample = "foo;\n		var foo = function named(){};\n		bar = 2\n\n		labeled: function bah(){\n			var x,z;\n			y = 10;\n		}\n\n		bah = foo;\n\n		exports: var efoo, ebar;\n\n		var someVariable = {\n			obj: initializer,\n			obj2: function(a,b){\n				return function(){\n					exports.foobar = '';\n					exports.fooz = 2;\n					return a / b / c;\n				}\n				var c;\n			}\n		}, someOtherVariable\n\n		exports.nooz = 'zoon';\n\n		exports: bar;\n\n		foo();\n\n		exports: function foobar(){\n			exports: function shouldNotFindThis(){}\n		}\n	";
+	sample = "foo;\n		var foo = function named(){};\n		bar = 2\n\n		labeled: function bah(){\n			var x,z;\n			y = 10;\n		}\n\n		bah = foo;\n\n		exports: var efoo, ebar;\n\n		var someVariable = {\n			obj: initializer,\n			obj2: function(a,b){\n				return function(){\n					exports.foobar = '';\n					exports.fooz = 2;\n					return a / b / c;\n				}\n				var c;\n			}\n		}, someOtherVariable\n\n		switch (\"x\"){\n			case \"x\": {\n				exports.nooz = 'zoon';\n			}\n			default: {\n				ebar = bah && /regexp/.test(\"string\")\n					? /regexp/ : !/regexp/;\n				return\"string\"\n			}\n		}\n\nexports: bar;\n\n		foo();\n\n		exports: function foobar(){\n			exports: function shouldNotFindThis(){}\n		}\n	";
 
 	it('should find all declared global variables', function(){
 		var module = parse(sample);
@@ -66,6 +68,7 @@ describe('globals', function(){
 
 	it('should find all undeclared global variables', function(){
 		var module = parse(sample);
+		console.log(module.expectedVariables);
 		expect(module.expectedVariables.length).toEqual(4);
 	});
 
@@ -86,7 +89,7 @@ describe('globals', function(){
 
 	it('should find all global tokens', function(){
 		var module = parse(sample);
-		expect(module.tokens.length).toEqual(13 + 3 + 3 + 2 + 3);
+		expect(module.tokens.length).toEqual(13 + 3 + 3 + 2 + 2 + 3);
 	});
 });
 

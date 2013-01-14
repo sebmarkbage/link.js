@@ -1,6 +1,6 @@
 {
 	"name" : "link",
-	"version" : "0.1.3",
+	"version" : "0.1.4",
 	"description" : "Module runtime and converter for Labeled Modules, CommonJS and AMD.",
 	"homepage" : "http://github.com/calyptus/link.js",
 	"keywords" : ["util", "modules", "label", "client", "browser", "amd", "commonjs"],
@@ -11,7 +11,7 @@
 		{ "type": "MIT", "url": "http://raw.github.com/calyptus/link.js/master/LICENSE" }
 	],
 	"dependencies" : {},
-	"engines" : { "node": "> 0.4.x < 0.7.0" },
+	"engines" : { "node": "> 0.4.x < 0.9.0" },
 	"repository" : {"type": "git", "url": "git://github.com/calyptus/link.js.git"},
 	"main" : "./Source/Node/link.js",
 	"bin": { "linkjs": "./Source/Node/link.js", "link.js": "./Source/Node/link.js" }
