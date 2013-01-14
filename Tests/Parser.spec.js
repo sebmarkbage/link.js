@@ -14,7 +14,7 @@ describe('globals', function(){
 
 		labeled: function bah(){
 			var x,z;
-			y = 10;
+			y = (10+z);
 		}
 
 		bah = foo;
@@ -54,7 +54,7 @@ describe('globals', function(){
 	});
 
 	// Avoid browser dead code elimination
-	sample = "foo;\n		var foo = function named(){};\n		bar = 2\n\n		labeled: function bah(){\n			var x,z;\n			y = 10;\n		}\n\n		bah = foo;\n\n		exports: var efoo, ebar;\n\n		var someVariable = {\n			obj: initializer,\n			obj2: function(a,b){\n				return function(){\n					exports.foobar = '';\n					exports.fooz = 2;\n					return a / b / c;\n				}\n				var c;\n			}\n		}, someOtherVariable\n\n		switch (\"x\"){\n			case \"x\": {\n				exports.nooz = 'zoon';\n			}\n			default: {\n				ebar = bah && /regexp/.test(\"string\")\n					? /regexp/ : !/regexp/;\n				return\"string\"\n			}\n		}\n\nexports: bar;\n\n		foo();\n\n		exports: function foobar(){\n			exports: function shouldNotFindThis(){}\n		}\n	";
+	sample = "foo;\n		var foo = function named(){};\n		bar = 2\n\n		labeled: function bah(){\n			var x,z;\n			y = (10+z);\n		}\n\n		bah = foo;\n\n		exports: var efoo, ebar;\n\n		var someVariable = {\n			obj: initializer,\n			obj2: function(a,b){\n				return function(){\n					exports.foobar = '';\n					exports.fooz = 2;\n					return a / b / c;\n				}\n				var c;\n			}\n		}, someOtherVariable\n\n		switch (\"x\"){\n			case \"x\": {\n				exports.nooz = 'zoon';\n			}\n			default: {\n				ebar = bah && /regexp/.test(\"string\")\n					? /regexp/ : !/regexp/;\n				return\"string\"\n			}\n		}\n\nexports: bar;\n\n		foo();\n\n		exports: function foobar(){\n			exports: function shouldNotFindThis(){}\n		}\n	";
 
 	it('should find all declared global variables', function(){
 		var module = parse(sample);

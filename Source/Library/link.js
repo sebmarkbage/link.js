@@ -1,4 +1,4 @@
-version: 0.14;
+version: 0.15;
 
 (function(){
 "use strict";
@@ -561,8 +561,10 @@ function scanNumericLiteral() {
 	var number, ch;
 	while (index < length) {
 		ch = source[index];
-		if ('0123456789abcdefABCDEF.xXeE+-'.indexOf(ch) < 0) {
-			break;
+		if ('0123456789abcdefABCDEF.xXeE'.indexOf(ch) < 0) {
+			if (ch != '+' && ch != '-') break;
+			ch = source[index - 1];
+			if (ch != 'e' && ch != 'E') break;
 		}
 		nextChar();
 	}
