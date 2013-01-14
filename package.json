@@ -1,6 +1,6 @@
 {
 	"name" : "link",
-	"version" : "0.1.4",
+	"version" : "0.1.5",
 	"description" : "Module runtime and converter for Labeled Modules, CommonJS and AMD.",
 	"homepage" : "http://github.com/calyptus/link.js",
 	"keywords" : ["util", "modules", "label", "client", "browser", "amd", "commonjs"],
